@@ -69,4 +69,20 @@ self.addEventListener('message', (event) => {
   }
 });
 
+self.addEventListener('activate', e => {
+
+  e.waitUntil(
+      caches.keys()
+      .then(cacheNames => {
+          return Promise.all(
+              cacheNames.map(cacheName => {
+                  //Eliminamos lo que ya no se necesita en cache
+              })
+          )
+      })
+      // Le indica al SW activar el cache actual
+      .then(() => self.clients.claim())
+  )
+})
+
 // Any other custom service worker logic can go here.
